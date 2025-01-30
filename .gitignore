@@ -1,4 +1,15 @@
+# Ignore the following directories
 KeyProgramming_Study/
 imgui/
 imgui_hex_editor/
+
+# Ignore object files (.o)
+*.o
+*.exe
+*.bin
+
+# Ignore any other file patterns you might want (optional)
+# For example, ignoring build directories or log files
+build/
+*.log
 
