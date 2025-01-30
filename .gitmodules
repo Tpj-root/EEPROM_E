@@ -1,0 +1,9 @@
+[submodule "imgui"]
+	path = imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "imgui_hex_editor"]
+	path = imgui_hex_editor
+	url = https://github.com/Teselka/imgui_hex_editor.git
+[submodule "KeyProgramming_Study"]
+	path = KeyProgramming_Study
+	url = https://github.com/Tpj-root/KeyProgramming_Study.git
