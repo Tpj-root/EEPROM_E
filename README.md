@@ -6,6 +6,29 @@ EEPROM_Editor
 
 
 
+### Dependencies
+
+```
+sudo apt install make pkg-config g++ libglfw3-dev
+```
+
+
+### Install
+
+
+```
+
+https://github.com/Tpj-root/EEPROM_E.git
+git submodule update --init --recursive
+make
+./Project.exe
+```
+
+
+
+
+
+![Screenshot](img/view.png)
 
 
 
