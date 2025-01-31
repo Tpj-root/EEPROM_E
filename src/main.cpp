@@ -53,9 +53,21 @@ int main(int argc, char** argv) {
         ImGui::Columns(2, "HexView", true);
         DrawHexEditor("Original Data", originalData, selectedOffset, searchedOffset, searchResult);
         ImGui::NextColumn();
+        
+        // Add Reset Button above the edited data
+        if (ImGui::Button("Reset Edited Data")) {
+            // Copy original data back to edited data
+            memcpy(editedData, originalData, FILE_SIZE);
+        
+            // Clear search results and selected offset
+            memset(searchResult, 0, sizeof(searchResult));
+            selectedOffset = -1;
+            searchedOffset = -1;
+        }
+        
+        // Display edited data
         DrawHexEditor("Edited Data", editedData, selectedOffset, searchedOffset, searchResult);
         ImGui::Columns(1);
-
         // Input for offset and value (8 boxes)
         ImGui::Separator();
         for (int i = 0; i < NUM_INPUT_BOXES; i++) {
@@ -81,7 +93,7 @@ int main(int argc, char** argv) {
         ImGui::Separator();
         HandleSearchBytes(); // Function to handle search for 1-byte, 2-byte, 3-byte, or 4-byte sequences
         ImGui::Separator();
-        //HandleSearchAndReplaceBytes(); // Function to handle search for 1-byte, 2-byte, 3-byte, or 4-byte sequences
+        HandleSearchAndReplaceBytes(); // Function to handle search for 1-byte, 2-byte, 3-byte, or 4-byte sequences
 
 
         // Save button

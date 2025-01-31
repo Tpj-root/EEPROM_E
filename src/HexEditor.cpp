@@ -35,6 +35,8 @@ bool SaveBinaryFile(const char* filename, unsigned char* data, size_t size) {
     return true;
 }
 
+
+
 // Function to draw hex editor view
 void DrawHexEditor(const char* title, unsigned char* data, int& selectedOffset, int searchedOffset, bool* searchResult) {
     ImGui::Text("%s", title);
@@ -126,7 +128,7 @@ void HandleJumpToOffset() {
 
 // Function to handle search for 1-byte, 2-byte, 3-byte, or 4-byte sequences
 void HandleSearchBytes() {
-    static char searchValue[MAX_INPUT_LEN] = "";
+    static char searchValue1[MAX_INPUT_LEN] = "";
     static char searchValue2[MAX_INPUT_LEN] = "";
     static char searchValue3[MAX_INPUT_LEN] = "";
     static char searchValue4[MAX_INPUT_LEN] = "";
@@ -135,7 +137,7 @@ void HandleSearchBytes() {
     ImGui::Text("Search Hex Value (1-4 Bytes)");
     ImGui::SameLine();
     ImGui::SetNextItemWidth(TEXT_WIDTH);  // Use global width
-    ImGui::InputText("##SearchHexValue1", searchValue, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
+    ImGui::InputText("##SearchHexValue1", searchValue1, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
     ImGui::SameLine();
     ImGui::SetNextItemWidth(TEXT_WIDTH);  // Use global width
     ImGui::InputText("##SearchHexValue2", searchValue2, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
@@ -150,14 +152,14 @@ void HandleSearchBytes() {
         memset(searchResult, 0, sizeof(searchResult)); // Clear previous search results
 
         // Convert input hex values to integers, default to 0 if empty
-        int value1 = (searchValue[0] != '\0') ? strtol(searchValue, NULL, 16) : 0;
+        int value1 = (searchValue1[0] != '\0') ? strtol(searchValue1, NULL, 16) : 0;
         int value2 = (searchValue2[0] != '\0') ? strtol(searchValue2, NULL, 16) : 0;
         int value3 = (searchValue3[0] != '\0') ? strtol(searchValue3, NULL, 16) : 0;
         int value4 = (searchValue4[0] != '\0') ? strtol(searchValue4, NULL, 16) : 0;
 
         // Determine the number of bytes to search based on input
         int numBytes = 0;
-        if (searchValue[0] != '\0') numBytes++;
+        if (searchValue1[0] != '\0') numBytes++;
         if (searchValue2[0] != '\0') numBytes++;
         if (searchValue3[0] != '\0') numBytes++;
         if (searchValue4[0] != '\0') numBytes++;
@@ -183,10 +185,10 @@ void HandleSearchBytes() {
 
 // Function to handle search and replace bytes for 1-4 byte sequences
 void HandleSearchAndReplaceBytes() {
-    static char searchValue1[MAX_INPUT_LEN] = "";
-    static char searchValue2[MAX_INPUT_LEN] = "";
-    static char searchValue3[MAX_INPUT_LEN] = "";
-    static char searchValue4[MAX_INPUT_LEN] = "";
+    static char searchValue11[MAX_INPUT_LEN] = "";
+    static char searchValue21[MAX_INPUT_LEN] = "";
+    static char searchValue31[MAX_INPUT_LEN] = "";
+    static char searchValue41[MAX_INPUT_LEN] = "";
 
     static char replaceValue1[MAX_INPUT_LEN] = "";
     static char replaceValue2[MAX_INPUT_LEN] = "";
@@ -197,17 +199,17 @@ void HandleSearchAndReplaceBytes() {
     ImGui::Text("Search Hex Value (1-4 Bytes) and Replace");
     ImGui::SameLine();
     ImGui::SetNextItemWidth(TEXT_WIDTH);  // Use global width
-    ImGui::InputText("##SearchHexValue1", searchValue1, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
+    ImGui::InputText("##SearchHexValue11", searchValue11, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
     ImGui::SameLine();
     ImGui::SetNextItemWidth(TEXT_WIDTH);  // Use global width
-    ImGui::InputText("##SearchHexValue2", searchValue2, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
+    ImGui::InputText("##SearchHexValue21", searchValue21, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
     ImGui::SameLine();
     ImGui::SetNextItemWidth(TEXT_WIDTH);  // Use global width
-    ImGui::InputText("##SearchHexValue3", searchValue3, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
+    ImGui::InputText("##SearchHexValue31", searchValue31, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
     ImGui::SameLine();
     ImGui::SetNextItemWidth(TEXT_WIDTH);  // Use global width
-    ImGui::InputText("##SearchHexValue4", searchValue4, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
-    
+    ImGui::InputText("##SearchHexValue41", searchValue41, MAX_INPUT_LEN, ImGuiInputTextFlags_CharsHexadecimal);
+    ImGui::SameLine();
     ImGui::Text("Replace Hex Value (1-4 Bytes)");
     ImGui::SameLine();
     ImGui::SetNextItemWidth(TEXT_WIDTH);  // Use global width
@@ -227,10 +229,10 @@ void HandleSearchAndReplaceBytes() {
         memset(searchResult, 0, sizeof(searchResult)); // Clear previous search results
 
         // Convert input hex values to integers for search and replace, default to 0 if empty
-        int searchVal1 = (searchValue1[0] != '\0') ? strtol(searchValue1, NULL, 16) : 0;
-        int searchVal2 = (searchValue2[0] != '\0') ? strtol(searchValue2, NULL, 16) : 0;
-        int searchVal3 = (searchValue3[0] != '\0') ? strtol(searchValue3, NULL, 16) : 0;
-        int searchVal4 = (searchValue4[0] != '\0') ? strtol(searchValue4, NULL, 16) : 0;
+        int searchVal1 = (searchValue11[0] != '\0') ? strtol(searchValue11, NULL, 16) : 0;
+        int searchVal2 = (searchValue21[0] != '\0') ? strtol(searchValue21, NULL, 16) : 0;
+        int searchVal3 = (searchValue31[0] != '\0') ? strtol(searchValue31, NULL, 16) : 0;
+        int searchVal4 = (searchValue41[0] != '\0') ? strtol(searchValue41, NULL, 16) : 0;
 
         int replaceVal1 = (replaceValue1[0] != '\0') ? strtol(replaceValue1, NULL, 16) : 0;
         int replaceVal2 = (replaceValue2[0] != '\0') ? strtol(replaceValue2, NULL, 16) : 0;
@@ -239,10 +241,10 @@ void HandleSearchAndReplaceBytes() {
 
         // Determine the number of bytes to search and replace based on input
         int numBytes = 0;
-        if (searchValue1[0] != '\0') numBytes++;
-        if (searchValue2[0] != '\0') numBytes++;
-        if (searchValue3[0] != '\0') numBytes++;
-        if (searchValue4[0] != '\0') numBytes++;
+        if (searchValue11[0] != '\0') numBytes++;
+        if (searchValue21[0] != '\0') numBytes++;
+        if (searchValue31[0] != '\0') numBytes++;
+        if (searchValue41[0] != '\0') numBytes++;
 
         // Perform the search and replace
         if (numBytes >= 1 && numBytes <= 4) {
@@ -253,13 +255,16 @@ void HandleSearchAndReplaceBytes() {
                 if (numBytes >= 3 && editedData[i + 2] != (unsigned char)searchVal3) match = false;
                 if (numBytes >= 4 && editedData[i + 3] != (unsigned char)searchVal4) match = false;
 
-                // If a match is found, replace the bytes
+                // If a match is found, replace the bytes and highlight them
                 if (match) {
                     for (int j = 0; j < numBytes; j++) {
                         if (j == 0) editedData[i + j] = (unsigned char)replaceVal1;
                         if (j == 1) editedData[i + j] = (unsigned char)replaceVal2;
                         if (j == 2) editedData[i + j] = (unsigned char)replaceVal3;
                         if (j == 3) editedData[i + j] = (unsigned char)replaceVal4;
+
+                        // Highlight the matched bytes
+                        searchResult[i + j] = true;
                     }
                 }
             }
